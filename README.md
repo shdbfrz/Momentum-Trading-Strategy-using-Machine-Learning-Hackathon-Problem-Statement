@@ -174,9 +174,11 @@ Strategy performance is evaluated using standard financial metrics:
 
 These results indicate **predictive power in cross-sectional momentum signals** and demonstrate the effectiveness of the machine-learning ensemble strategy.
 
----
 
----
+
+![Heatmap](Images(visualization)/chart2_heatmap.png)
+
+
 
 # Repository Structure
 
@@ -240,6 +242,7 @@ Generated from tree-based models.
 
 ### weekly_predictions_portfolio.csv
 
+
 This file contains **model predictions and portfolio allocations**.
 
 Typical columns include:
@@ -252,6 +255,11 @@ Typical columns include:
 | probability | predicted probability |
 | weight      | portfolio allocation  |
 
+
+## Strategy Equity Curve (PnL – Profit and Loss)
+
+![Strategy PnL](Images(visualization)/chart1_pnl.png)
+
 ---
 
 # Models Used
@@ -263,6 +271,8 @@ The ensemble combines:
 * XGBoost
 
 These models are combined using **VotingClassifier** for stronger prediction stability.
+
+![Model Analysis](Images(visualization)/chart3_analysis.png)
 
 ---
 
