@@ -11,7 +11,14 @@ The project implements a **complete quant pipeline**:
 ```
 Data Collection → Feature Engineering → ML Models → Backtesting → Performance Metrics → Visualization
 ```
-
+ #Strategy Explanation
+ 
+A machine learning-based long-only weekly momentum strategy applied to 10 US equities (AAPL, MSFT, GOOGL, AMZN, META, TSLA, JPM, V, JNJ, BRK-B) using daily OHLCV data from 2017 to 2025.
+Feature Engineering: 31 features per stock per week — including momentum signals (1w to 52w), moving average ratios (MA10 to MA200), realised volatility, RSI-14, MACD, Bollinger Band position, and volume ratios.
+Model: A soft-voting ensemble of Logistic Regression, Random Forest (300 trees), and XGBoost predicts the probability of a positive next-week return for each stock. The top-2 ranked stocks are selected each week.
+Portfolio: Equal-weight (50% each), long-only, rebalanced weekly. Transaction cost of 0.1% at entry and 0.1% at exit (0.2% round-trip per week) is applied.
+Validation: Trained on 2017–2022 (2,600 samples), tested out-of-sample on 2023–2025 (109 weeks). Walk-forward retraining was also implemented (every 26 weeks), achieving 15.3% annualised return with a Sharpe of 0.811.
+Result: The strategy delivers a net cumulative return of 49.3% and net annualised return of 21.1% with a Sharpe ratio of 1.189 over the test period, confirming genuine predictive signal in cross-sectional momentum.
 ---
 
 # Repository Structure
@@ -44,13 +51,7 @@ Main performance dashboard showing:
 * portfolio growth
 * risk metrics
 
-![Image](https://s3.tradingview.com/x/xEMoClat_mid.png?v=1773099757)
 
-![Image](https://kjtradingsystems.com/uploads/3/4/0/2/34026855/eqcurvefig3_orig.jpg)
-
-![Image](https://miro.medium.com/v2/resize%3Afit%3A1400/1%2A6C_96mQbFVmZOvZ7NxXQrA.jpeg)
-
-![Image](https://www.researchgate.net/publication/350424838/figure/fig4/AS%3A1005840190423052%401616822397205/Equity-curves-of-the-long-short-and-combined-models-of-the-PMS-The-left-and-right.png)
 
 ---
 
@@ -65,13 +66,6 @@ Examples:
 * 6-month momentum
 * volatility signals
 
-![Image](https://s3.tradingview.com/v/VBOn1TYA_mid.png?v=1772808681)
-
-![Image](https://images.openai.com/static-rsc-3/IVRqs6e0oVotVJZJZqu_-ckw1vzY_uSPRl5YUmqS2vJThnMrYCwP31nlw0g1BZ6tb9q1iC-m-jWCasbPgut1PVERtzpDzlzztt7e30609-c?purpose=fullsize\&v=1)
-
-![Image](https://miro.medium.com/1%2AUxAkShUgqQAw4N1AHgdwvw.png)
-
-![Image](https://www.tandfonline.com/cms/asset/b9cab001-3c99-4517-81f4-6ec53911dd85/rero_a_2089192_f0004_c.jpg)
 
 ---
 
@@ -81,13 +75,9 @@ Displays **model feature importance** showing which variables contributed most t
 
 Generated from tree-based models.
 
-![Image](https://www.researchgate.net/publication/332635798/figure/fig2/AS%3A11431281210587685%401702059714039/Feature-importance-bar-plot-based-on-XGBoost.tif)
 
-![Image](https://miro.medium.com/1%2A-GGDhUQV8ZTzsiSR8iEfWQ.png)
 
-![Image](https://www.researchgate.net/publication/384906590/figure/fig5/AS%3A11431281283782618%401728960927363/a-Feature-importance-visualization-for-the-ANN-model-The-bar-chart-displays-the-mean.png)
 
-![Image](https://www.researchgate.net/publication/395458586/figure/fig3/AS%3A11431281635042831%401757757170431/Machine-learning-feature-importance-results-The-bar-chart-illustrates-the-feature_Q320.jpg)
 
 ---
 
@@ -106,7 +96,7 @@ Typical columns include:
 | weight      | portfolio allocation  |
 
 ---
-
+![Image]("C:\Users\shdbf\Downloads\chart3_analysis.png")
 # Models Used
 
 The ensemble combines:
@@ -131,21 +121,8 @@ AAPL, MSFT, GOOGL, AMZN, META, TSLA, JPM, V, JNJ, BRK.B
 
 ---
 
-# Installation
+![Image]("C:\Users\shdbf\Downloads\chart1_pnl.png")
 
-Install dependencies:
-
-```bash
-pip install numpy pandas scikit-learn xgboost yfinance matplotlib
-```
-
----
-
-# Run the Project
-
-```bash
-python main.py
-```
 
 The script will:
 
@@ -157,7 +134,7 @@ The script will:
 6. Save portfolio predictions
 
 ---
-
+![Image]("C:\Users\shdbf\Downloads\chart2_heatmap.png")
 # Performance Metrics
 
 Key evaluation metrics:
@@ -168,8 +145,9 @@ Key evaluation metrics:
 * Sharpe ratio
 * ROC-AUC
 * accuracy
-
+![Image]("C:\Users\shdbf\Downloads\dashboard(1).png")
 ---
+
 
 # Author
 
