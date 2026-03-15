@@ -8,6 +8,8 @@ Machine learning–driven **long-only momentum trading strategy** that predicts 
 
 The project implements a **complete quant pipeline**:
 
+![Dashboard](Images(visualization)/dashboard%20(1).png)
+
 ```
 Data Collection → Feature Engineering → ML Models → Backtesting → Performance Metrics → Visualization
 ```
