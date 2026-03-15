@@ -11,14 +11,169 @@ The project implements a **complete quant pipeline**:
 ```
 Data Collection → Feature Engineering → ML Models → Backtesting → Performance Metrics → Visualization
 ```
- Strategy Explanation
- 
-A machine learning-based long-only weekly momentum strategy applied to 10 US equities (AAPL, MSFT, GOOGL, AMZN, META, TSLA, JPM, V, JNJ, BRK-B) using daily OHLCV data from 2017 to 2025.
-Feature Engineering: 31 features per stock per week — including momentum signals (1w to 52w), moving average ratios (MA10 to MA200), realised volatility, RSI-14, MACD, Bollinger Band position, and volume ratios.
-Model: A soft-voting ensemble of Logistic Regression, Random Forest (300 trees), and XGBoost predicts the probability of a positive next-week return for each stock. The top-2 ranked stocks are selected each week.
-Portfolio: Equal-weight (50% each), long-only, rebalanced weekly. Transaction cost of 0.1% at entry and 0.1% at exit (0.2% round-trip per week) is applied.
-Validation: Trained on 2017–2022 (2,600 samples), tested out-of-sample on 2023–2025 (109 weeks). Walk-forward retraining was also implemented (every 26 weeks), achieving 15.3% annualised return with a Sharpe of 0.811.
-Result: The strategy delivers a net cumulative return of 49.3% and net annualised return of 21.1% with a Sharpe ratio of 1.189 over the test period, confirming genuine predictive signal in cross-sectional momentum.
+### Strategy Explanation
+
+This project implements a machine learning–based long-only weekly momentum strategy applied to 10 US equities.
+
+The strategy uses daily OHLCV data (2017–2025) and predicts the probability of positive weekly returns using an ensemble of Logistic Regression, Random Forest, and XGBoost models.
+
+### 1. Data Collection
+
+Daily **OHLCV data (2017–2025)** is downloaded for the following 10 US equities using **yfinance**:
+
+* AAPL
+* MSFT
+* GOOGL
+* AMZN
+* META
+* TSLA
+* JPM
+* V
+* JNJ
+* BRK-B
+
+---
+
+### 2. Feature Engineering
+
+A total of **31 weekly features** are computed for each stock, including:
+
+* Momentum returns (1–52 weeks)
+* Moving average ratios (MA10–MA200)
+* RSI-14
+* MACD
+* Realized volatility
+* Bollinger Band position
+* Volume ratios
+
+These indicators capture **trend strength, volatility patterns, and market momentum behavior**.
+
+---
+
+### 3. Weekly Dataset Construction
+
+Daily data is converted into a **weekly panel dataset**.
+
+Each row represents:
+
+```
+(stock, week)
+```
+
+with engineered features and the **next-week return label**.
+
+---
+
+### 4. Target Variable
+
+A **binary classification target** is defined:
+
+* **1 → next week return > 0**
+* **0 → next week return ≤ 0**
+
+---
+
+### 5. Model Training
+
+Three machine learning models are trained:
+
+* Logistic Regression
+* Random Forest (300 trees)
+* XGBoost
+
+---
+
+### 6. Ensemble Prediction
+
+The predictions from the three models are combined using a **soft-voting ensemble**.
+
+The ensemble outputs the **probability of a positive return in the next week** for each stock.
+
+---
+
+### 7. Stock Ranking
+
+Each week, all stocks are **ranked by predicted probability**.
+
+---
+
+### 8. Portfolio Selection
+
+The **top 2 highest-probability stocks** are selected.
+
+---
+
+### 9. Portfolio Allocation
+
+Capital is allocated using an **equal-weight strategy**:
+
+* 50% in stock 1
+* 50% in stock 2
+
+The strategy is **long-only**.
+
+---
+
+### 10. Rebalancing
+
+The portfolio is **rebalanced weekly** using updated model predictions.
+
+---
+
+### 11. Transaction Costs
+
+Realistic trading costs are applied:
+
+* **0.1% at entry**
+* **0.1% at exit**
+
+Total trading cost = **0.2% round-trip per week**.
+
+---
+
+### 12. Backtesting
+
+The strategy is evaluated using a **time-based split**:
+
+| Period      | Description           |
+| ----------- | --------------------- |
+| 2017–2022   | Training data         |
+| 2023–2025   | Out-of-sample testing |
+| Test length | 109 weeks             |
+
+---
+
+### 13. Walk-Forward Retraining
+
+To adapt to market changes, models are **retrained every 26 weeks** using new data.
+
+---
+
+### 14. Performance Evaluation
+
+Strategy performance is evaluated using standard financial metrics:
+
+* Cumulative Return
+* Annualized Return
+* Volatility
+* Sharpe Ratio
+* Maximum Drawdown
+* Hit Rate
+
+---
+
+### 15. Final Results (After Transaction Costs)
+
+| Metric                | Value     |
+| --------------------- | --------- |
+| Net Cumulative Return | **49.3%** |
+| Annualized Return     | **21.1%** |
+| Sharpe Ratio          | **1.189** |
+
+These results indicate **predictive power in cross-sectional momentum signals** and demonstrate the effectiveness of the machine-learning ensemble strategy.
+
+---
+
 ---
 
 # Repository Structure
@@ -96,7 +251,7 @@ Typical columns include:
 | weight      | portfolio allocation  |
 
 ---
-![Image]("C:\Users\shdbf\Downloads\chart3_analysis.png")
+
 # Models Used
 
 The ensemble combines:
@@ -121,7 +276,7 @@ AAPL, MSFT, GOOGL, AMZN, META, TSLA, JPM, V, JNJ, BRK.B
 
 ---
 
-![Analysis Chart](images/chart3_analysis.png)
+
 
 
 The script will:
@@ -134,7 +289,7 @@ The script will:
 6. Save portfolio predictions
 
 ---
-![Image]("C:\Users\shdbf\Downloads\chart2_heatmap.png")
+
 # Performance Metrics
 
 Key evaluation metrics:
@@ -145,7 +300,7 @@ Key evaluation metrics:
 * Sharpe ratio
 * ROC-AUC
 * accuracy
-![Image]("C:\Users\shdbf\Downloads\dashboard(1).png")
+
 ---
 
 
