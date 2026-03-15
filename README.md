@@ -121,7 +121,7 @@ AAPL, MSFT, GOOGL, AMZN, META, TSLA, JPM, V, JNJ, BRK.B
 
 ---
 
-![Image]("C:\Users\shdbf\Downloads\chart1_pnl.png")
+![Analysis Chart](images/chart3_analysis.png)
 
 
 The script will:
