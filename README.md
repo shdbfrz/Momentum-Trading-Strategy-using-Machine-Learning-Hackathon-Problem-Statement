@@ -11,7 +11,7 @@ The project implements a **complete quant pipeline**:
 ```
 Data Collection → Feature Engineering → ML Models → Backtesting → Performance Metrics → Visualization
 ```
- #Strategy Explanation
+ Strategy Explanation
  
 A machine learning-based long-only weekly momentum strategy applied to 10 US equities (AAPL, MSFT, GOOGL, AMZN, META, TSLA, JPM, V, JNJ, BRK-B) using daily OHLCV data from 2017 to 2025.
 Feature Engineering: 31 features per stock per week — including momentum signals (1w to 52w), moving average ratios (MA10 to MA200), realised volatility, RSI-14, MACD, Bollinger Band position, and volume ratios.
